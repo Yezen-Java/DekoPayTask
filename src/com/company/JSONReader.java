@@ -2,38 +2,35 @@ package com.company;
 
 
 import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by yezenalnafei on 15/08/2017.
  */
-public class JsonReader extends IOFile {
+public class JSONReader extends FileReader {
 
     private String filePath;
 
-    public JsonReader(String filePath) {
+    public JSONReader(String filePath) {
         this.filePath = filePath;
     }
 
 
     @Override
-    public void read() {
+    public List<User> read() {
 
         try {
-            User[] reviews = new Gson().fromJson(new FileReader(filePath), User[].class);
-            List<User> asList = Arrays.asList(reviews);
-
-            for ( User  user: asList) {
-                System.out.println(user.getUserId());
-            }
+            User[] reviews = new Gson().fromJson(new java.io.FileReader(filePath), User[].class);
+            List<User> users = Arrays.asList(reviews);
+            super.setUsers(users);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        return super.getUsers();
 
     }
 

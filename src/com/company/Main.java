@@ -1,15 +1,21 @@
 package com.company;
 
 
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
 	// write your code here
 
-     CSVReader json = new CSVReader("data/users.csv");
-     json.read();
+        Users users = new Users("data");
+        users.traverseDirectory();
 
-        for (User user: json.getUsers()) {
+        System.out.println(users.users.size());
+
+
+
+        for (User user: users.getStoredList()) {
             System.out.println(user.toString());
         }
 

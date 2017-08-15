@@ -1,17 +1,29 @@
 package com.company;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 /**
  * Created by yezenalnafei on 14/08/2017.
  */
 public class User implements Comparable<User>{
-
+    @SerializedName(value = "user_id")
     private String userId;
+
+    @SerializedName(value = "first_name")
     private String firstName;
+
+    @SerializedName(value = "last_name")
     private String lastName;
+
+    @SerializedName(value = "username")
     private String userName;
+
+    @SerializedName(value = "user_type")
     private String userType;
+
+    @SerializedName(value = "last_login_time")
     private String lastLoginTIme;
 
     public User(String userId, String firstName, String lastName, String userName, String userType, String lastLoginTIme) {

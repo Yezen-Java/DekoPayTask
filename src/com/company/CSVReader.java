@@ -1,14 +1,13 @@
 package com.company;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
  * Created by yezenalnafei on 15/08/2017.
  */
-public class CSVReader extends IOFile {
+public class CSVReader extends FileReader {
 
     private String filePath;
 
@@ -17,9 +16,8 @@ public class CSVReader extends IOFile {
     }
 
     @Override
-    public void read() {
-        String line;
-        try (Scanner scanner = new Scanner(new FileReader(filePath))) {
+    public List<User> read() {
+        try (Scanner scanner = new Scanner(new java.io.FileReader(filePath))) {
             scanner.nextLine(); // to get ride of headers
             while (scanner.hasNext()) {
                 String[] fields = scanner.nextLine().split(",");
@@ -29,6 +27,8 @@ public class CSVReader extends IOFile {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return super.getUsers();
 
     }
 
