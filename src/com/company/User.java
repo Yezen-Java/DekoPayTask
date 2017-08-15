@@ -7,14 +7,14 @@ import java.util.Date;
  */
 public class User implements Comparable<User>{
 
-    private int userId;
+    private String userId;
     private String firstName;
     private String lastName;
     private String userName;
     private String userType;
     private String lastLoginTIme;
 
-    public User(int userId, String firstName, String lastName, String userName, String userType, String lastLoginTIme) {
+    public User(String userId, String firstName, String lastName, String userName, String userType, String lastLoginTIme) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,13 +25,15 @@ public class User implements Comparable<User>{
 
     @Override
     public int compareTo(User user) {
-        if (this.userId > user.userId) return 1;
-        else if(this.userId < user.userId) return -1;
+      int thisObject =  Integer.parseInt(this.userId);
+      int otherObject = Integer.parseInt(user.userId);
+        if (thisObject > otherObject) return 1;
+        else if(thisObject < otherObject) return -1;
         else return 0;
     }
 
     public int getUserId() {
-        return userId;
+        return Integer.parseInt(userId);
     }
 
     public String getFirstName() {
@@ -52,5 +54,18 @@ public class User implements Comparable<User>{
 
     public String getLastLoginTIme() {
         return lastLoginTIme;
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userType='" + userType + '\'' +
+                ", lastLoginTIme='" + lastLoginTIme + '\'' +
+                '}';
     }
 }
