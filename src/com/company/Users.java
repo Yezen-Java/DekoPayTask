@@ -1,4 +1,5 @@
 package com.company;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.nio.file.NotDirectoryException;
@@ -6,61 +7,80 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.io.FilenameUtils;
-
 /**
  * Created by yezenalnafei on 15/08/2017.
  */
+
+
 public class Users {
 
-    private String directory;
     public List<User> users;
 
-    public Users(String directory){
-        this.directory = directory;
-        users = new ArrayList<>();
+    public Users(){
+
     }
 
-    public void traverseDirectory(){
+    public void setUsers(List<User> users) {
+        Collections.sort(users);
+        this.users = users;
 
-        File fileDic = new File(directory);
+    }
+
+
+    public void traverseDirectory(String path){
+
+        List<User> users = new ArrayList<>();
+        File fileDic = new File(path);
 
         if (fileDic.isDirectory()){
 
             String[] files = fileDic.list();
 
             for (String fileName: files){
-                String filePath = directory +"/"+fileName;
+                String filePath = "data" +"/"+fileName;
                 String ext = FilenameUtils.getExtension(fileName).toLowerCase();
                 List<User> tempUsers;
                 switch (ext){
                     case "json": tempUsers = new JSONReader(filePath).read();
-                    break;
+                        break;
                     case "xml": tempUsers = new XMLReader(filePath).read();
-                    break;
+                        break;
                     case "csv": tempUsers = new CSVReader(filePath).read();
-                    break;
+                        break;
                     default: tempUsers = null;
                 }
 
 
                 users.addAll(tempUsers);
 
-                System.out.println(users.size());
             }
 
         }else{
             try {
-                throw new NotDirectoryException(directory+" Is not a directory");
+                throw new NotDirectoryException("Path is not a directory");
             } catch (NotDirectoryException e) {
                 e.printStackTrace();
             }
         }
+
+        Collections.sort(users);
+
+        setUsers(users);
+
     }
 
 
-    public List<User> getStoredList(){
-        Collections.sort(users);
+    public void generateFiles(){
+        String path = "sample/users";
+
+        new XMLReader(path+".xml").write(users);
+        new JSONReader(path+".json").write(users);;
+        new CSVReader(path+".csv").write(users);;
+
+
+    }
+
+    public List<User> getUsers(){
         return users;
     }
 }

@@ -1,16 +1,22 @@
 package com.company;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
+import java.beans.XMLEncoder;
+import java.io.*;
+import java.lang.reflect.Executable;
 import java.util.List;
 
 /**
@@ -18,10 +24,9 @@ import java.util.List;
  */
 public class XMLReader extends FileReader {
 
-    private String filePath;
     private Element element;
     public XMLReader(String filePath){
-        this.filePath = filePath;
+        super(filePath);
     }
 
 
@@ -29,7 +34,7 @@ public class XMLReader extends FileReader {
     public List<User> read() {
 
         try {
-            File xmlFile = new File(filePath);
+            File xmlFile = new File(getFilePath());
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 
@@ -67,9 +72,35 @@ public class XMLReader extends FileReader {
     }
 
     @Override
-    public void write() {
+    public void write(List<User> users) {
 
+        try{
+
+            XStream xstream = new XStream(new DomDriver("UTF-8"));
+            xstream.alias("user", User.class);
+            xstream.alias("users", Users.class);
+            xstream.aliasField("userid", User.class, "userId");
+            xstream.aliasField("firstname", User.class, "firstName");
+            xstream.aliasField("lastname", User.class, "lastName");
+            xstream.aliasField("username", User.class, "userName");
+            xstream.aliasField("useryype", User.class, "userType");
+            xstream.aliasField("lastlogintime", User.class, "lastLoginTIme");
+
+
+            xstream.addImplicitCollection(Users.class, "users");
+            Users user2 = new Users();
+                    user2.setUsers(users);
+            String xml = xstream.toXML(user2);
+
+            super.outputToFile(xml);
+
+            System.out.println(xml);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
+
+
 
 
     private String getElementContext(String itemName){

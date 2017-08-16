@@ -1,13 +1,16 @@
 package com.company;
 
 import com.google.gson.annotations.SerializedName;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-import java.util.Date;
 
 /**
  * Created by yezenalnafei on 14/08/2017.
  */
+
 public class User implements Comparable<User>{
+
+
     @SerializedName(value = "user_id")
     private String userId;
 
@@ -43,7 +46,6 @@ public class User implements Comparable<User>{
         else if(thisObject < otherObject) return -1;
         else return 0;
     }
-
     public int getUserId() {
         return Integer.parseInt(userId);
     }
@@ -64,10 +66,35 @@ public class User implements Comparable<User>{
         return userType;
     }
 
+
     public String getLastLoginTIme() {
         return lastLoginTIme;
     }
 
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public void setLastLoginTIme(String lastLoginTIme) {
+        this.lastLoginTIme = lastLoginTIme;
+    }
 
     @Override
     public String toString() {

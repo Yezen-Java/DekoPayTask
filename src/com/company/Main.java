@@ -1,23 +1,22 @@
 package com.company;
 
 
+import org.apache.commons.io.FilenameUtils;
+
+import java.io.File;
+import java.nio.file.NotDirectoryException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
 
-        Users users = new Users("data");
-        users.traverseDirectory();
-
-        System.out.println(users.users.size());
-
-
-
-        for (User user: users.getStoredList()) {
-            System.out.println(user.toString());
-        }
+        Users users = new Users();
+        users.traverseDirectory("data");
+        users.generateFiles();
 
     }
-}
+    }
+

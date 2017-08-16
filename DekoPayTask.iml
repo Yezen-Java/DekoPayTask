@@ -9,5 +9,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="gson-2.8.1" level="project" />
     <orderEntry type="library" name="commons-io-2.5" level="project" />
+    <orderEntry type="library" name="opencsv-4.0" level="project" />
+    <orderEntry type="library" name="commons-csv-1.4" level="project" />
+    <orderEntry type="library" name="xstream-1.4.10" level="project" />
   </component>
 </module>

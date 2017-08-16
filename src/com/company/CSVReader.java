@@ -1,6 +1,11 @@
 package com.company;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,15 +14,14 @@ import java.util.Scanner;
  */
 public class CSVReader extends FileReader {
 
-    private String filePath;
 
     public CSVReader(String filePath) {
-        this.filePath = filePath;
+        super(filePath);
     }
 
     @Override
     public List<User> read() {
-        try (Scanner scanner = new Scanner(new java.io.FileReader(filePath))) {
+        try (Scanner scanner = new Scanner(new java.io.FileReader(getFilePath()))) {
             scanner.nextLine(); // to get ride of headers
             while (scanner.hasNext()) {
                 String[] fields = scanner.nextLine().split(",");
@@ -33,7 +37,54 @@ public class CSVReader extends FileReader {
     }
 
     @Override
-    public void write() {
+    public void write(List<User> users) {
 
+        Object[] columns = {"User ID","First Name","Last Name","Username","User Type"," Last Login Time"};
+
+        FileWriter fileWriter = null;
+
+        CSVPrinter csvFilePrinter = null;
+
+        //Create the CSVFormat object with "\n" as a record delimiter
+        CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator("\n");
+
+        try {
+
+            //initialize FileWriter object
+            fileWriter = new FileWriter(getFilePath());
+
+            //initialize CSVPrinter object
+            csvFilePrinter = new CSVPrinter(fileWriter, csvFileFormat);
+
+            //Create CSV file header
+            csvFilePrinter.printRecord(columns);
+
+            //Write a new student object list to the CSV file
+            for (User user : users) {
+                List userTemp = new ArrayList();
+                userTemp.add(user.getUserId());
+                userTemp.add(user.getFirstName());
+                userTemp.add(user.getLastName());
+                userTemp.add(user.getUserName());
+                userTemp.add(user.getUserType());
+                userTemp.add(user.getLastLoginTIme());
+                csvFilePrinter.printRecord(userTemp);
+            }
+
+            System.out.println("CSV file was created successfully !!!");
+
+        } catch (Exception e) {
+            System.out.println("Error in CsvFileWriter !!!");
+            e.printStackTrace();
+        } finally {
+            try {
+                fileWriter.flush();
+                fileWriter.close();
+                csvFilePrinter.close();
+            } catch (IOException e) {
+                System.out.println("Error while flushing/closing fileWriter/csvPrinter !!!");
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -1,5 +1,8 @@
 package com.company;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +13,35 @@ public abstract class FileReader {
 
 private List<User> users = new ArrayList<>();
 
-    public abstract List<User> read();
-    public abstract void write();
+    private final String filePath;
 
+    public abstract List<User> read();
+
+    public abstract void write(List<User> users);
+
+
+    public FileReader(String filePath){
+        this.filePath = filePath;
+    }
+
+
+    public void outputToFile(String content){
+        File myFoo;
+        FileWriter fooWriter = null;
+        try {
+         myFoo = new File(filePath);
+         fooWriter= new FileWriter(myFoo, false);
+            fooWriter.write(content);
+            fooWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public String getFilePath(){
+        return filePath;
+    }
 
     public void addUser(User user){
         users.add(user);
@@ -25,5 +54,6 @@ private List<User> users = new ArrayList<>();
     public List<User> getUsers(){
         return users;
     }
+
 
 }

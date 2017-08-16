@@ -2,6 +2,8 @@ package com.company;
 
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.apache.commons.io.FileUtils;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -12,10 +14,11 @@ import java.util.List;
  */
 public class JSONReader extends FileReader {
 
-    private String filePath;
+    private Gson gson;
 
     public JSONReader(String filePath) {
-        this.filePath = filePath;
+        super(filePath);
+        this.gson = new Gson();
     }
 
 
@@ -23,9 +26,9 @@ public class JSONReader extends FileReader {
     public List<User> read() {
 
         try {
-            User[] reviews = new Gson().fromJson(new java.io.FileReader(filePath), User[].class);
+            User[] reviews = gson.fromJson(new java.io.FileReader(getFilePath()), User[].class);
             List<User> users = Arrays.asList(reviews);
-            super.setUsers(users);
+            setUsers(users);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -35,7 +38,13 @@ public class JSONReader extends FileReader {
     }
 
     @Override
-    public void write() {
+    public void write(List<User> users) {
+
+        gson = new GsonBuilder().setPrettyPrinting().create();
+
+       String jsonString =  gson.toJson(users);
+
+       outputToFile(jsonString);
 
     }
 }
