@@ -1,10 +1,10 @@
-package com.company;
+package readers;
 
+
+import objects.User;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.apache.commons.io.FileUtils;
-
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by yezenalnafei on 15/08/2017.
  */
-public class JSONReader extends FileReader {
+public class JSONReader extends FileReader implements ReaderWriterInterface {
 
     private Gson gson;
 
@@ -20,7 +20,6 @@ public class JSONReader extends FileReader {
         super(filePath);
         this.gson = new Gson();
     }
-
 
     @Override
     public List<User> read() {
@@ -34,17 +33,14 @@ public class JSONReader extends FileReader {
         }
 
         return super.getUsers();
-
     }
 
     @Override
     public void write(List<User> users) {
 
         gson = new GsonBuilder().setPrettyPrinting().create();
+        String jsonString = gson.toJson(users);
 
-       String jsonString =  gson.toJson(users);
-
-       outputToFile(jsonString);
-
+        outputToFile(jsonString);
     }
 }

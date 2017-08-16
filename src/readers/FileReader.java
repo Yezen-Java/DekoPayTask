@@ -1,4 +1,6 @@
-package com.company;
+package readers;
+
+import objects.User;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -9,34 +11,29 @@ import java.util.List;
 /**
  * Created by yezenalnafei on 14/08/2017.
  */
-public abstract class FileReader {
+public class FileReader {
 
 private List<User> users = new ArrayList<>();
 
     private final String filePath;
 
-    public abstract List<User> read();
-
-    public abstract void write(List<User> users);
-
-
     public FileReader(String filePath){
         this.filePath = filePath;
     }
 
-
     public void outputToFile(String content){
+
         File file;
-        FileWriter fooWriter = null;
+        FileWriter fileWriter = null;
+
         try {
          file = new File(filePath);
-         fooWriter= new FileWriter(file, false);
-            fooWriter.write(content);
-            fooWriter.close();
+            fileWriter= new FileWriter(file, false);
+            fileWriter.write(content);
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public String getFilePath(){
@@ -54,6 +51,5 @@ private List<User> users = new ArrayList<>();
     public List<User> getUsers(){
         return users;
     }
-
 
 }

@@ -1,4 +1,7 @@
-package com.company;
+package readers;
+
+import objects.User;
+import objects.Users;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -16,13 +19,13 @@ import java.util.List;
 /**
  * Created by yezenalnafei on 15/08/2017.
  */
-public class XMLReader extends FileReader {
+public class XMLReader extends readers.FileReader implements ReaderWriterInterface {
 
     private Element element;
+
     public XMLReader(String filePath){
         super(filePath);
     }
-
 
     @Override
     public List<User> read() {
@@ -40,6 +43,7 @@ public class XMLReader extends FileReader {
             for (int i = 0; i < nodeList.getLength(); i++) {
 
                 Node node = nodeList.item(i);
+
                 if (node.getNodeType() == Node.ELEMENT_NODE){
 
                     element = (Element) node;
@@ -48,28 +52,19 @@ public class XMLReader extends FileReader {
                             getElementContext("surname"), getElementContext("username"),
                             getElementContext("type"), getElementContext("lastlogintime") ));
                 }
-
             }
 
-
-
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
         }
 
         return super.getUsers();
-
     }
 
     @Override
     public void write(List<User> users) {
 
         try{
-
             XStream xstream = new XStream(new DomDriver("UTF-8"));
             xstream.alias("user", User.class);
             xstream.alias("users", Users.class);
@@ -80,22 +75,17 @@ public class XMLReader extends FileReader {
             xstream.aliasField("useryype", User.class, "userType");
             xstream.aliasField("lastlogintime", User.class, "lastLoginTIme");
 
-
             xstream.addImplicitCollection(Users.class, "users");
             Users usersObject = new Users();
             usersObject.setUsers(users);
             String xml = xstream.toXML(usersObject);
 
-            super.outputToFile(xml);
+            outputToFile(xml); // save generated xml to output directory
 
-            System.out.println(xml);
         } catch(Exception e) {
             e.printStackTrace();
         }
     }
-
-
-
 
     private String getElementContext(String itemName){
         return element.getElementsByTagName(itemName).item(0).getTextContent();

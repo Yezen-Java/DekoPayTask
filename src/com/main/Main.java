@@ -1,4 +1,6 @@
-package com.company;
+package com.main;
+
+import objects.Users;
 
 public class Main {
 

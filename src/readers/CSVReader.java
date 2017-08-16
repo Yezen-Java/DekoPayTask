@@ -1,8 +1,8 @@
-package com.company;
+package readers;
 
+import objects.User;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,8 +12,7 @@ import java.util.Scanner;
 /**
  * Created by yezenalnafei on 15/08/2017.
  */
-public class CSVReader extends FileReader {
-
+public class CSVReader extends FileReader implements ReaderWriterInterface{
 
     public CSVReader(String filePath) {
         super(filePath);
@@ -33,7 +32,6 @@ public class CSVReader extends FileReader {
         }
 
         return super.getUsers();
-
     }
 
     @Override
@@ -61,7 +59,7 @@ public class CSVReader extends FileReader {
 
             //Write a new student object list to the CSV file
             for (User user : users) {
-                List userTemp = new ArrayList();
+                List userTemp = new ArrayList(); // auto unboxing
                 userTemp.add(user.getUserId());
                 userTemp.add(user.getFirstName());
                 userTemp.add(user.getLastName());
@@ -71,10 +69,7 @@ public class CSVReader extends FileReader {
                 csvFilePrinter.printRecord(userTemp);
             }
 
-            System.out.println("CSV file was created successfully !!!");
-
         } catch (Exception e) {
-            System.out.println("Error in CsvFileWriter !!!");
             e.printStackTrace();
         } finally {
             try {
@@ -82,7 +77,6 @@ public class CSVReader extends FileReader {
                 fileWriter.close();
                 csvFilePrinter.close();
             } catch (IOException e) {
-                System.out.println("Error while flushing/closing fileWriter/csvPrinter !!!");
                 e.printStackTrace();
             }
         }

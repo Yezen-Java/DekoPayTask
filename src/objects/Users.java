@@ -1,6 +1,10 @@
-package com.company;
-import org.apache.commons.io.FilenameUtils;
+package objects;
 
+import readers.CSVReader;
+import readers.JSONReader;
+import readers.XMLReader;
+
+import org.apache.commons.io.FilenameUtils;
 import java.io.File;
 import java.nio.file.NotDirectoryException;
 import java.util.ArrayList;
@@ -33,6 +37,7 @@ public class Users {
             String[] files = fileDic.list();
 
             for (String fileName: files){
+
                 String filePath = "data" +"/"+fileName;
                 String ext = FilenameUtils.getExtension(fileName).toLowerCase();
                 List<User> tempUsers;
@@ -57,22 +62,16 @@ public class Users {
             }
         }
 
-        Collections.sort(users);
-
         setUsers(users);
-
     }
-
 
     public void generateFiles(){
 
-        String path = "sample/users";
+        String path = "output/users";
 
         new XMLReader(path+".xml").write(users);
-        new JSONReader(path+".json").write(users);;
-        new CSVReader(path+".csv").write(users);;
-
-
+        new JSONReader(path+".json").write(users);
+        new CSVReader(path+".csv").write(users);
     }
 
     public List<User> getUsers(){

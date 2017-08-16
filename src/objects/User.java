@@ -1,7 +1,10 @@
-package com.company;
+package objects;
 
 import com.google.gson.annotations.SerializedName;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 
 /**
@@ -37,14 +40,6 @@ public class User implements Comparable<User>{
         this.lastLoginTIme = lastLoginTIme;
     }
 
-    @Override
-    public int compareTo(User user) {
-      int thisObject =  Integer.parseInt(this.userId);
-      int otherObject = Integer.parseInt(user.userId);
-        if (thisObject > otherObject) return 1;
-        else if(thisObject < otherObject) return -1;
-        else return 0;
-    }
     public int getUserId() {
         return Integer.parseInt(userId);
     }
@@ -65,11 +60,13 @@ public class User implements Comparable<User>{
         return userType;
     }
 
+    public String getLastLoginTIme() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY HH:mm:ss");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ssZ");
 
-    public String getLastLoginTIme() {
-        return lastLoginTIme;
+        return sdf2.format(sdf.parse(lastLoginTIme));
+
     }
-
 
     public void setUserId(String userId) {
         this.userId = userId;
@@ -93,6 +90,15 @@ public class User implements Comparable<User>{
 
     public void setLastLoginTIme(String lastLoginTIme) {
         this.lastLoginTIme = lastLoginTIme;
+    }
+
+    @Override
+    public int compareTo(User user) {
+        int thisObject =  Integer.parseInt(this.userId);
+        int otherObject = Integer.parseInt(user.userId);
+        if (thisObject > otherObject) return 1;
+        else if(thisObject < otherObject) return -1;
+        else return 0;
     }
 
     @Override
