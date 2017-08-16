@@ -7,16 +7,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.beans.XMLEncoder;
 import java.io.*;
-import java.lang.reflect.Executable;
 import java.util.List;
 
 /**
@@ -88,9 +82,9 @@ public class XMLReader extends FileReader {
 
 
             xstream.addImplicitCollection(Users.class, "users");
-            Users user2 = new Users();
-                    user2.setUsers(users);
-            String xml = xstream.toXML(user2);
+            Users usersObject = new Users();
+            usersObject.setUsers(users);
+            String xml = xstream.toXML(usersObject);
 
             super.outputToFile(xml);
 

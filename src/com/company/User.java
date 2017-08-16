@@ -10,7 +10,6 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 public class User implements Comparable<User>{
 
-
     @SerializedName(value = "user_id")
     private String userId;
 

@@ -45,18 +45,18 @@ public class CSVReader extends FileReader {
 
         CSVPrinter csvFilePrinter = null;
 
-        //Create the CSVFormat object with "\n" as a record delimiter
+        // Create the CSVFormat object with "\n" as a record delimiter
         CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator("\n");
 
         try {
 
-            //initialize FileWriter object
+            // initialize FileWriter object
             fileWriter = new FileWriter(getFilePath());
 
-            //initialize CSVPrinter object
+            // initialize CSVPrinter object
             csvFilePrinter = new CSVPrinter(fileWriter, csvFileFormat);
 
-            //Create CSV file header
+            // Create CSV file header
             csvFilePrinter.printRecord(columns);
 
             //Write a new student object list to the CSV file

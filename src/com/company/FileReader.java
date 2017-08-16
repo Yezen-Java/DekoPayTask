@@ -26,11 +26,11 @@ private List<User> users = new ArrayList<>();
 
 
     public void outputToFile(String content){
-        File myFoo;
+        File file;
         FileWriter fooWriter = null;
         try {
-         myFoo = new File(filePath);
-         fooWriter= new FileWriter(myFoo, false);
+         file = new File(filePath);
+         fooWriter= new FileWriter(file, false);
             fooWriter.write(content);
             fooWriter.close();
         } catch (IOException e) {

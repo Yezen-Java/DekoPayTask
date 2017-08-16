@@ -16,14 +16,10 @@ public class Users {
 
     public List<User> users;
 
-    public Users(){
-
-    }
-
     public void setUsers(List<User> users) {
+
         Collections.sort(users);
         this.users = users;
-
     }
 
 
@@ -50,9 +46,7 @@ public class Users {
                     default: tempUsers = null;
                 }
 
-
                 users.addAll(tempUsers);
-
             }
 
         }else{
@@ -71,6 +65,7 @@ public class Users {
 
 
     public void generateFiles(){
+
         String path = "sample/users";
 
         new XMLReader(path+".xml").write(users);
