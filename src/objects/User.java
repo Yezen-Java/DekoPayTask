@@ -6,11 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
-
-/**
- * Created by yezenalnafei on 14/08/2017.
- */
-
 public class User implements Comparable<User>{
 
     @SerializedName(value = "user_id")

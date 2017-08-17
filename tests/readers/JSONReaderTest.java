@@ -11,9 +11,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by yezenalnafei on 17/08/2017.
- */
 public class JSONReaderTest {
 
     @Before

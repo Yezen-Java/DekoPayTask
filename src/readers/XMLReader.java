@@ -16,9 +16,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.List;
 
-/**
- * Created by yezenalnafei on 15/08/2017.
- */
 public class XMLReader extends readers.FileReader implements ReaderWriterInterface {
 
     private Element element;

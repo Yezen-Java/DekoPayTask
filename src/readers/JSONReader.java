@@ -1,6 +1,5 @@
 package readers;
 
-
 import objects.User;
 
 import com.google.gson.Gson;
@@ -9,9 +8,6 @@ import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by yezenalnafei on 15/08/2017.
- */
 public class JSONReader extends FileReader implements ReaderWriterInterface {
 
     private Gson gson;

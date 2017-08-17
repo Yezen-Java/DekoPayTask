@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Created by yezenalnafei on 15/08/2017.
- */
 public class CSVReader extends FileReader implements ReaderWriterInterface{
 
     public CSVReader(String filePath) {
