@@ -37,7 +37,7 @@ public class CSVReader extends FileReader implements ReaderWriterInterface{
     @Override
     public void write(List<User> users) {
 
-        Object[] columns = {"User ID","First Name","Last Name","Username","User Type"," Last Login Time"};
+        Object[] columns = {"User ID","First Name","Last Name","Username","User Type","Last Login Time"};
 
         FileWriter fileWriter = null;
 

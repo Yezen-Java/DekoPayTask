@@ -70,9 +70,9 @@ public class XMLReader extends readers.FileReader implements ReaderWriterInterfa
             xstream.alias("users", Users.class);
             xstream.aliasField("userid", User.class, "userId");
             xstream.aliasField("firstname", User.class, "firstName");
-            xstream.aliasField("lastname", User.class, "lastName");
+            xstream.aliasField("surname", User.class, "lastName");
             xstream.aliasField("username", User.class, "userName");
-            xstream.aliasField("useryype", User.class, "userType");
+            xstream.aliasField("type", User.class, "userType");
             xstream.aliasField("lastlogintime", User.class, "lastLoginTIme");
 
             xstream.addImplicitCollection(Users.class, "users");

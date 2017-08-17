@@ -1,4 +1,4 @@
-User ID,First Name,Last Name,Username,User Type," Last Login Time"
+User ID,First Name,Last Name,Username,User Type,Last Login Time
 1,John,Doe,John1,Employee,29-12-2014 12:01:34+0000
 2,Mary,Jane,Mary23,Employee,30-12-2013 13:45:42+0000
 3,David,Payne,Dpayne,Manager,30-12-2013 09:35:02+0000

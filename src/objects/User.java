@@ -40,8 +40,8 @@ public class User implements Comparable<User>{
         this.lastLoginTIme = lastLoginTIme;
     }
 
-    public int getUserId() {
-        return Integer.parseInt(userId);
+    public String getUserId() {
+        return userId;
     }
 
     public String getFirstName() {
